@@ -24,7 +24,7 @@
         </group>
     </actions>-->
 
-    <extensions defaultExtensionNs="com.intellij">
+    <!--<extensions defaultExtensionNs="com.intellij">
         <postStartupActivity implementation="com.github.minasploit.migrationfacilitator.extensions.StartupListener"/>
-    </extensions>
+    </extensions>-->
 </idea-plugin>
