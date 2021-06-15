@@ -5,4 +5,20 @@ formatting:
   Indentation:
     continuationIndentSize: 8
   ParameterListWrapping:
-    indentSize: 8
+    indentSize: 4
+  StringTemplate:
+    active: false
+  MaximumLineLength:
+    active: false
+  MultiLineIfElse:
+    active: false
+
+style:
+  MagicNumber:
+    active: false
+  MaxLineLength:
+    active: false
+
+complexity:
+  LongParameterList:
+    functionThreshold: 7

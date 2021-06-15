@@ -1,7 +1,9 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# migration-facilitator Changelog
+# Migration Facilitator Changelog
 
-## [Unreleased]
+## [1.0.0]
 ### Added
-- Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
+- Initial release of the plugin
+- Support for Adding and removing migration.
+- Support for updating database

@@ -1,19 +1,30 @@
 <idea-plugin>
     <id>com.github.minasploit.migrationfacilitator</id>
     <name>Migration Facilitator</name>
-    <vendor>minasploit</vendor>
+    <vendor url="https://github.com/minasploit" email="minasploit@gmail.com">Minasie Shibeshi</vendor>
+
+    <idea-version since-build="201" until-build="211.*"/>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.minasploit.migrationfacilitator.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.minasploit.migrationfacilitator.services.MyProjectService"/>
-    </extensions>
+    <actions>
+        <group id="com.github.minasploit.migrationfacilitator.Migrations" text="Migrations" popup="true">
+            <add-to-group group-id="MainMenu" anchor="before" relative-to-action="HelpMenu"/>
+            <action id="com.github.minasploit.migrationfacilitator.actions.AddMigration"
+                    class="com.github.minasploit.migrationfacilitator.actions.AddMigration" text="Add Migration">
+            </action>
+            <action id="com.github.minasploit.migrationfacilitator.actions.RemoveMigration"
+                    class="com.github.minasploit.migrationfacilitator.actions.RemoveMigration" text="Remove Migration">
+            </action>
+            <action id="com.github.minasploit.migrationfacilitator.actions.UpdateDatabase"
+                    class="com.github.minasploit.migrationfacilitator.actions.UpdateDatabase" text="Update Database">
+            </action>
+        </group>
+    </actions>
 
-    <applicationListeners>
-        <listener class="com.github.minasploit.migrationfacilitator.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+    <extensions defaultExtensionNs="com.intellij">
+        <postStartupActivity implementation="com.github.minasploit.migrationfacilitator.extensions.StartupListener"/>
+    </extensions>
 </idea-plugin>
