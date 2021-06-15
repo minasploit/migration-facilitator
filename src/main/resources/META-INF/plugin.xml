@@ -2,6 +2,7 @@
     <id>com.github.minasploit.migrationfacilitator</id>
     <name>Migration Facilitator</name>
     <vendor url="https://github.com/minasploit" email="minasploit@gmail.com">Minasie Shibeshi</vendor>
+    <version>1.0.0</version>
 
     <idea-version since-build="201" until-build="211.*"/>
 
