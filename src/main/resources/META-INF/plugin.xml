@@ -10,6 +10,8 @@
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
+    <!-- <extensions defaultExtensionNs="com.intellij"/>-->
+
     <actions>
         <group id="com.github.minasploit.migrationfacilitator.Migrations" text="Migrations" popup="true">
             <add-to-group group-id="MainMenu" anchor="before" relative-to-action="HelpMenu"/>
