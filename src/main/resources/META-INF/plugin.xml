@@ -10,7 +10,7 @@
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
-    <!--<actions>
+    <actions>
         <group id="com.github.minasploit.migrationfacilitator.Migrations" text="Migrations" popup="true">
             <add-to-group group-id="MainMenu" anchor="before" relative-to-action="HelpMenu"/>
             <action id="com.github.minasploit.migrationfacilitator.actions.AddMigration"
@@ -23,9 +23,9 @@
                     class="com.github.minasploit.migrationfacilitator.actions.UpdateDatabase" text="Update Database">
             </action>
         </group>
-    </actions>-->
+    </actions>
 
-    <!--<extensions defaultExtensionNs="com.intellij">
+    <extensions defaultExtensionNs="com.intellij">
         <postStartupActivity implementation="com.github.minasploit.migrationfacilitator.extensions.StartupListener"/>
-    </extensions>-->
+    </extensions>
 </idea-plugin>
