@@ -35,9 +35,7 @@ class Util private constructor() {
             dir: String = project.basePath!!
         ): Triple<Boolean, String, String> {
             val process = Runtime.getRuntime().exec(command, null, File(dir))
-
-            process.waitFor()
-            val successful = process.exitValue() == 0
+            val successful = process.waitFor() == 0
 
             val scanner = Scanner(process.inputStream)
 
