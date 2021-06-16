@@ -45,7 +45,7 @@ class Util private constructor() {
             var outputTrimmed = ""
             var line = 0
             while (scanner.hasNextLine()) {
-                val lineString = scanner.nextLine();
+                val lineString = scanner.nextLine()
 
                 output += "$lineString\n"
 
@@ -59,7 +59,7 @@ class Util private constructor() {
                 line++
             }
 
-            val errorMessage: String;
+            val errorMessage: String
             when {
                 output.contains("Project file does not exist") -> {
                     val errorProject = StringUtils.substringBetween(output, "Switch: ", "\n")
