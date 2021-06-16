@@ -55,8 +55,11 @@ class UpdateDatabaseDialog(private val project: Project) : DialogWrapper(project
         dataProjectInput.preferredSize = Dimension(75, 25)
         dataProjectInputLabel.labelFor = dataProjectInput
 
-        refreshMigrationButton.action =
-            RefreshMigrationAction(this)
+        refreshMigrationButton.action = object : AbstractAction() {
+            override fun actionPerformed(e: ActionEvent?) {
+                refreshMigrationList()
+            }
+        }
         refreshMigrationButton.text = "Refresh Migrations"
         refreshMigrationButton.isVisible = false
 
@@ -82,7 +85,7 @@ class UpdateDatabaseDialog(private val project: Project) : DialogWrapper(project
             override fun run(indicator: ProgressIndicator) {
                 // start your process
 
-                val (success, output) = Util.runCommand(
+                val (success, output, errorMessage) = Util.runCommand(
                     project,
                     "dotnet ef migrations list -s ${startupProjectInput.text} -p ${dataProjectInput.text}"
                 )
@@ -109,8 +112,7 @@ class UpdateDatabaseDialog(private val project: Project) : DialogWrapper(project
                     Util.showNotification(
                         project,
                         "Failed to load migrations",
-                        if (output.contains("Unable to retrieve project metadata"))
-                            "The specified startup or data project is invalid" else output,
+                        if (errorMessage != "") errorMessage else output,
                         NotificationType.ERROR,
                         NotificationDisplayType.BALLOON,
                         Messages.getErrorIcon()
@@ -168,11 +170,5 @@ class UpdateDatabaseDialog(private val project: Project) : DialogWrapper(project
     init {
         init()
         title = "Update Database"
-    }
-}
-
-class RefreshMigrationAction(private val dialog: UpdateDatabaseDialog) : AbstractAction() {
-    override fun actionPerformed(e: ActionEvent?) {
-        dialog.refreshMigrationList()
     }
 }

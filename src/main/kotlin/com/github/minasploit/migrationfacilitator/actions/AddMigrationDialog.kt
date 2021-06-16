@@ -103,7 +103,7 @@ class AddMigrationDialog(private val project: Project) : DialogWrapper(project, 
             override fun run(indicator: ProgressIndicator) {
                 // start your process
 
-                val (success, output) = Util.runCommand(
+                val (success, output, errorMessage) = Util.runCommand(
                     project,
                     "dotnet ef migrations add $migrationName -s ${startupProjectInput.text} -p ${dataProjectInput.text}"
                 )
@@ -120,7 +120,7 @@ class AddMigrationDialog(private val project: Project) : DialogWrapper(project, 
                     Util.showNotification(
                         project,
                         "Can't create migration",
-                        output,
+                        if (errorMessage != "") errorMessage else output,
                         NotificationType.ERROR,
                         NotificationDisplayType.BALLOON,
                         Messages.getErrorIcon()

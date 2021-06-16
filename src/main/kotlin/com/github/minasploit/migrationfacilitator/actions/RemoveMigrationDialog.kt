@@ -78,7 +78,7 @@ class RemoveMigrationDialog(private val project: Project) : DialogWrapper(projec
                 override fun run(indicator: ProgressIndicator) {
                     // start your process
 
-                    val (success, output) = Util.runCommand(
+                    val (success, output, errorMessage) = Util.runCommand(
                         project,
                         "dotnet ef migrations remove -s ${startupProjectInput.text} -p ${dataProjectInput.text}"
                     )
@@ -96,7 +96,7 @@ class RemoveMigrationDialog(private val project: Project) : DialogWrapper(projec
                         Util.showNotification(
                             project,
                             "Can't remove migration",
-                            output,
+                            if (errorMessage != "") errorMessage else output,
                             NotificationType.ERROR,
                             NotificationDisplayType.BALLOON,
                             Messages.getErrorIcon()
