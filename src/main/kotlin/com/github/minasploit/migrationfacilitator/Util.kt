@@ -1,15 +1,12 @@
 package com.github.minasploit.migrationfacilitator
 
-import com.intellij.notification.NotificationDisplayType
-import com.intellij.notification.NotificationGroup
 import com.intellij.notification.NotificationType
-import com.intellij.notification.Notifications
+import com.intellij.notification.Notification
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFileManager
 import org.apache.commons.lang.StringUtils
 import java.io.File
 import java.util.Scanner
-import javax.swing.Icon
 
 class Util private constructor() {
 
@@ -18,14 +15,10 @@ class Util private constructor() {
             project: Project,
             title: String,
             message: String,
-            notificationType: NotificationType,
-            notificationDisplayType: NotificationDisplayType,
-            notificationGroupIcon: Icon? = null
+            notificationType: NotificationType
         ) {
-            val notificationGroup =
-                NotificationGroup(NOTIFICATION_GROUP_ID, notificationDisplayType, true, null, notificationGroupIcon)
-            val notification = notificationGroup.createNotification(title, message, notificationType)
-            Notifications.Bus.notify(notification, project)
+            val notification = Notification(NOTIFICATION_GROUP_ID, title, message, notificationType)
+            notification.notify(project)
         }
 
         fun runCommand(
@@ -85,6 +78,10 @@ class Util private constructor() {
                 VirtualFileManager.getInstance().refreshWithoutFileWatcher(true)
 
             return Triple(successful, outputTrimmed, errorMessage)
+        }
+
+        fun buildDotnetCommand(commandSection: String, startupProject: String, dataProject: String): String {
+            return "dotnet ef $commandSection -s \"$startupProject\" -p \"$dataProject\""
         }
     }
 }

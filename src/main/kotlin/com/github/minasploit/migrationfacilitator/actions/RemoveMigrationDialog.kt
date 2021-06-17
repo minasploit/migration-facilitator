@@ -4,7 +4,6 @@ import com.github.minasploit.migrationfacilitator.DATA_PROJECT
 import com.github.minasploit.migrationfacilitator.STARTUP_PROJECT
 import com.github.minasploit.migrationfacilitator.Util
 import com.intellij.ide.util.PropertiesComponent
-import com.intellij.notification.NotificationDisplayType
 import com.intellij.notification.NotificationType
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
@@ -63,12 +62,13 @@ class RemoveMigrationDialog(private val project: Project) : DialogWrapper(projec
     }
 
     override fun doOKAction() {
-        val confirmationResult = Messages.showConfirmationDialog(
+        val confirmationResult = Messages.showOkCancelDialog(
             contentPanel,
             "Are you sure you want to remove the last migration?",
             "Confirmation",
             "Remove",
-            "Cancel"
+            "Cancel",
+            Messages.getQuestionIcon()
         )
         if (confirmationResult == Messages.YES) {
             properties.setValue(STARTUP_PROJECT, startupProjectInput.text)
@@ -80,7 +80,7 @@ class RemoveMigrationDialog(private val project: Project) : DialogWrapper(projec
 
                     val (success, output, errorMessage) = Util.runCommand(
                         project,
-                        "dotnet ef migrations remove -s ${startupProjectInput.text} -p ${dataProjectInput.text}"
+                        Util.buildDotnetCommand("migrations remove", startupProjectInput.text, dataProjectInput.text)
                     )
                     if (success) {
                         val migrationName = StringUtils.substringBetween(output, "'", "'")
@@ -88,18 +88,14 @@ class RemoveMigrationDialog(private val project: Project) : DialogWrapper(projec
                             project,
                             "Migration removed",
                             "Last Migration: $migrationName removed from the project ${dataProjectInput.text}",
-                            NotificationType.INFORMATION,
-                            NotificationDisplayType.BALLOON,
-                            Messages.getInformationIcon()
+                            NotificationType.INFORMATION
                         )
                     } else {
                         Util.showNotification(
                             project,
                             "Can't remove migration",
                             if (errorMessage != "") errorMessage else output,
-                            NotificationType.ERROR,
-                            NotificationDisplayType.BALLOON,
-                            Messages.getErrorIcon()
+                            NotificationType.ERROR
                         )
                     }
                 }

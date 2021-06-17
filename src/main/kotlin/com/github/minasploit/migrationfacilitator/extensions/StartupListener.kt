@@ -1,14 +1,12 @@
 package com.github.minasploit.migrationfacilitator.extensions
 
 import com.github.minasploit.migrationfacilitator.Util
-import com.intellij.notification.NotificationDisplayType
 import com.intellij.notification.NotificationType
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task.Backgroundable
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.StartupActivity
-import com.intellij.openapi.ui.Messages
 
 class StartupListener : StartupActivity {
     override fun runActivity(project: Project) {
@@ -33,18 +31,14 @@ class StartupListener : StartupActivity {
                                 project,
                                 "Dotnet ef installed",
                                 "Entity Framework Core .NET Command-line Tool installed successfully",
-                                NotificationType.INFORMATION,
-                                NotificationDisplayType.BALLOON,
-                                Messages.getInformationIcon()
+                                NotificationType.INFORMATION
                             )
                         } else {
                             Util.showNotification(
                                 project,
                                 "Installation failed",
                                 "Couldn't install Entity Framework Core .NET Command-line Tool",
-                                NotificationType.ERROR,
-                                NotificationDisplayType.BALLOON,
-                                Messages.getErrorIcon()
+                                NotificationType.ERROR
                             )
                         }
                     }

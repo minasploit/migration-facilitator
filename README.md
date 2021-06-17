@@ -1,8 +1,8 @@
 # Migration Facilitator
 
 ![Build](https://github.com/minasploit/migration-facilitator/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/17026-migration-facilitator.svg)](https://plugins.jetbrains.com/plugin/17026-migration-facilitator)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/17026-migration-facilitator.svg)](https://plugins.jetbrains.com/plugin/17026-migration-facilitator)
+[![Version](https://img.shields.io/jetbrains/plugin/v/17026.svg)](https://plugins.jetbrains.com/plugin/17026)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/17026.svg)](https://plugins.jetbrains.com/plugin/17026)
 
 Manages the addition and removal of EF Core migrations as well as database updates.
 

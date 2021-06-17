@@ -4,14 +4,12 @@ import com.github.minasploit.migrationfacilitator.DATA_PROJECT
 import com.github.minasploit.migrationfacilitator.STARTUP_PROJECT
 import com.github.minasploit.migrationfacilitator.Util
 import com.intellij.ide.util.PropertiesComponent
-import com.intellij.notification.NotificationDisplayType
 import com.intellij.notification.NotificationType
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogWrapper
-import com.intellij.openapi.ui.Messages
 import java.awt.Dimension
 import java.awt.event.ActionEvent
 import javax.swing.AbstractAction
@@ -87,7 +85,7 @@ class UpdateDatabaseDialog(private val project: Project) : DialogWrapper(project
 
                 val (success, output, errorMessage) = Util.runCommand(
                     project,
-                    "dotnet ef migrations list -s ${startupProjectInput.text} -p ${dataProjectInput.text}"
+                    Util.buildDotnetCommand("migrations list", startupProjectInput.text, dataProjectInput.text)
                 )
 
                 if (success) {
@@ -113,9 +111,7 @@ class UpdateDatabaseDialog(private val project: Project) : DialogWrapper(project
                         project,
                         "Failed to load migrations",
                         if (errorMessage != "") errorMessage else output,
-                        NotificationType.ERROR,
-                        NotificationDisplayType.BALLOON,
-                        Messages.getErrorIcon()
+                        NotificationType.ERROR
                     )
 
                     refreshMigrationButton.isVisible = true
@@ -138,7 +134,11 @@ class UpdateDatabaseDialog(private val project: Project) : DialogWrapper(project
                 // start your process
                 val (success, output) = Util.runCommand(
                     project,
-                    "dotnet ef database update $migrationName -s ${startupProjectInput.text} -p ${dataProjectInput.text}",
+                    Util.buildDotnetCommand(
+                        "database update \"$migrationName\"",
+                        startupProjectInput.text,
+                        dataProjectInput.text
+                    ),
                     0
                 )
                 if (success) {
@@ -147,18 +147,14 @@ class UpdateDatabaseDialog(private val project: Project) : DialogWrapper(project
                         "Database updated",
                         if (migrationName == "0") "All migrations have been removed and the database has been reset."
                         else "Migration: '$migrationName' applied to database referenced in the project ${dataProjectInput.text}",
-                        NotificationType.INFORMATION,
-                        NotificationDisplayType.BALLOON,
-                        Messages.getInformationIcon()
+                        NotificationType.INFORMATION
                     )
                 } else {
                     Util.showNotification(
                         project,
                         "Can't update database",
                         output,
-                        NotificationType.ERROR,
-                        NotificationDisplayType.BALLOON,
-                        Messages.getErrorIcon()
+                        NotificationType.ERROR
                     )
                 }
             }

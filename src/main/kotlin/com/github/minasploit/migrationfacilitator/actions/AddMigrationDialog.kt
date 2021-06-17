@@ -12,7 +12,6 @@ import com.github.minasploit.migrationfacilitator.DATA_PROJECT
 import com.github.minasploit.migrationfacilitator.STARTUP_PROJECT
 import com.github.minasploit.migrationfacilitator.Util
 import com.intellij.ide.util.PropertiesComponent
-import com.intellij.notification.NotificationDisplayType
 import com.intellij.notification.NotificationType
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
@@ -105,25 +104,25 @@ class AddMigrationDialog(private val project: Project) : DialogWrapper(project, 
 
                 val (success, output, errorMessage) = Util.runCommand(
                     project,
-                    "dotnet ef migrations add $migrationName -s ${startupProjectInput.text} -p ${dataProjectInput.text}"
+                    Util.buildDotnetCommand(
+                        "migrations add \"$migrationName\"",
+                        startupProjectInput.text,
+                        dataProjectInput.text
+                    )
                 )
                 if (success) {
                     Util.showNotification(
                         project,
                         "Migration created",
                         "Migration: '$migrationName' created in the project ${dataProjectInput.text}",
-                        NotificationType.INFORMATION,
-                        NotificationDisplayType.BALLOON,
-                        Messages.getInformationIcon()
+                        NotificationType.INFORMATION
                     )
                 } else {
                     Util.showNotification(
                         project,
                         "Can't create migration",
                         if (errorMessage != "") errorMessage else output,
-                        NotificationType.ERROR,
-                        NotificationDisplayType.BALLOON,
-                        Messages.getErrorIcon()
+                        NotificationType.ERROR
                     )
                 }
             }

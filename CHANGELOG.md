@@ -2,6 +2,12 @@
 
 # Migration Facilitator Changelog
 
+## [1.0.2]
+### Fixed
+
+- Issues with using project names with whitespaces
+- IDE compatibility issues
+
 ## [1.0.1]
 ### Added
 
