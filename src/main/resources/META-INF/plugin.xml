@@ -2,9 +2,9 @@
     <id>com.github.minasploit.migrationfacilitator</id>
     <name>Migration Facilitator</name>
     <vendor url="https://github.com/minasploit" email="minasploit@gmail.com">Minasie Shibeshi</vendor>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 
-    <idea-version since-build="201" until-build="211.*"/>
+    <idea-version since-build="145" until-build="211.*"/>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
@@ -24,6 +24,9 @@
             <action id="com.github.minasploit.migrationfacilitator.actions.UpdateDatabase"
                     class="com.github.minasploit.migrationfacilitator.actions.UpdateDatabase" text="Update Database">
             </action>
+            <separator/>
+            <action id="com.github.minasploit.migrationfacilitator.actions.VersionAction"
+                    class="com.github.minasploit.migrationfacilitator.actions.VersionAction" text="Version 1.0.3"/>
         </group>
     </actions>
 

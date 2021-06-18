@@ -10,6 +10,9 @@ import com.intellij.openapi.startup.StartupActivity
 
 class StartupListener : StartupActivity {
     override fun runActivity(project: Project) {
+        // disable version button
+        // ActionManager.getInstance().getAction("com.github.minasploit.migrationfacilitator.actions.VersionAction").templatePresentation.isVisible = false
+
         ProgressManager.getInstance()
             .run(object : Backgroundable(project, "Checking if EF Command line tool is installed...") {
                 override fun run(indicator: ProgressIndicator) {

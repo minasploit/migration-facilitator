@@ -2,6 +2,11 @@
 
 # Migration Facilitator Changelog
 
+## [1.0.3]
+### Fixed
+
+- Fixed backward compatibility to 2016.1.4
+
 ## [1.0.2]
 ### Fixed
 
