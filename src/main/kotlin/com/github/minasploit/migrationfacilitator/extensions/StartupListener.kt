@@ -10,8 +10,7 @@ import com.intellij.openapi.startup.StartupActivity
 
 class StartupListener : StartupActivity {
     override fun runActivity(project: Project) {
-        // disable version button
-        // ActionManager.getInstance().getAction("com.github.minasploit.migrationfacilitator.actions.VersionAction").templatePresentation.isVisible = false
+        Util.disableAllButtons()
 
         ProgressManager.getInstance()
             .run(object : Backgroundable(project, "Checking if EF Command line tool is installed...") {
@@ -19,14 +18,15 @@ class StartupListener : StartupActivity {
                     indicator.isIndeterminate = false
                     indicator.fraction = 0.33
 
-                    val (success) = Util.runCommand(project, "dotnet ef")
+                    val (success) = Util.runCommand(project, "dotnet ef", 2, project.basePath!!, false)
                     if (!success) {
                         indicator.fraction = 0.66
                         indicator.text = "Installing EF Command line tool..."
 
                         val (installSuccess) = Util.runCommand(
                             project,
-                            "dotnet tool install --global dotnet-ef"
+                            "dotnet tool install --global dotnet-ef",
+                            2, project.basePath!!, false
                         )
 
                         if (installSuccess) {
@@ -36,6 +36,8 @@ class StartupListener : StartupActivity {
                                 "Entity Framework Core .NET Command-line Tool installed successfully",
                                 NotificationType.INFORMATION
                             )
+
+                            Util.enableAllButtons()
                         } else {
                             Util.showNotification(
                                 project,
@@ -44,6 +46,8 @@ class StartupListener : StartupActivity {
                                 NotificationType.ERROR
                             )
                         }
+                    } else {
+                        Util.enableAllButtons()
                     }
 
                     indicator.fraction = 1.0

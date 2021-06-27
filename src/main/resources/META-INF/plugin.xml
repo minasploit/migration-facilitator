@@ -2,7 +2,7 @@
     <id>com.github.minasploit.migrationfacilitator</id>
     <name>Migration Facilitator</name>
     <vendor url="https://github.com/minasploit" email="minasploit@gmail.com">Minasie Shibeshi</vendor>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 
     <idea-version since-build="145" until-build="211.*"/>
 
@@ -13,20 +13,34 @@
     <!-- <extensions defaultExtensionNs="com.intellij"/>-->
 
     <actions>
-        <group id="com.github.minasploit.migrationfacilitator.Migrations" text="Migrations" popup="true">
+        <group id="Migrations.Definitions">
+            <action class="com.github.minasploit.migrationfacilitator.actions.AddMigration"
+                    id="Migrations.Add" text="Add Migration" icon="AllIcons.General.Add">
+                <add-to-group group-id="ToolbarRunGroup" anchor="first"/>
+                <keyboard-shortcut first-keystroke="shift control F1" keymap="$default"/>
+            </action>
+            <action class="com.github.minasploit.migrationfacilitator.actions.RemoveMigration"
+                    id="Migrations.Remove" text="Remove Migration" icon="AllIcons.General.Remove">
+                <add-to-group group-id="ToolbarRunGroup" anchor="after" relative-to-action="Migrations.Add"/>
+                <keyboard-shortcut first-keystroke="shift control F2" keymap="$default"/>
+            </action>
+            <action class="com.github.minasploit.migrationfacilitator.actions.UpdateDatabase"
+                    id="Migrations.Update" text="Update Database" icon="AllIcons.Vcs.Patch">
+                <add-to-group group-id="ToolbarRunGroup" anchor="after" relative-to-action="Migrations.Remove"/>
+                <keyboard-shortcut first-keystroke="shift control F3" keymap="$default"/>
+            </action>
+            <action class="com.github.minasploit.migrationfacilitator.actions.VersionAction"
+                    id="Migrations.Version" text="Version 1.0.4"/>
+        </group>
+
+        <group id="Migrations.Menu" text="Migrations" popup="true">
             <add-to-group group-id="MainMenu" anchor="before" relative-to-action="HelpMenu"/>
-            <action id="com.github.minasploit.migrationfacilitator.actions.AddMigration"
-                    class="com.github.minasploit.migrationfacilitator.actions.AddMigration" text="Add Migration">
-            </action>
-            <action id="com.github.minasploit.migrationfacilitator.actions.RemoveMigration"
-                    class="com.github.minasploit.migrationfacilitator.actions.RemoveMigration" text="Remove Migration">
-            </action>
-            <action id="com.github.minasploit.migrationfacilitator.actions.UpdateDatabase"
-                    class="com.github.minasploit.migrationfacilitator.actions.UpdateDatabase" text="Update Database">
-            </action>
-            <separator/>
-            <action id="com.github.minasploit.migrationfacilitator.actions.VersionAction"
-                    class="com.github.minasploit.migrationfacilitator.actions.VersionAction" text="Version 1.0.3"/>
+
+            <reference id="Migrations.Add"/>
+            <reference id="Migrations.Remove"/>
+            <reference id="Migrations.Update"/>
+            <separator />
+            <reference id="Migrations.Version"/>
         </group>
     </actions>
 

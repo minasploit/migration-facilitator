@@ -22,3 +22,11 @@ style:
 complexity:
   LongParameterList:
     functionThreshold: 7
+  LongMethod:
+    active: false
+
+exceptions:
+  TooGenericExceptionCaught:
+    active: false
+  SwallowedException:
+      active: false

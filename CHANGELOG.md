@@ -2,6 +2,15 @@
 
 # Migration Facilitator Changelog
 
+## [1.0.4]
+### Added
+- Synchronous blocking load of migrations for Update Database
+- Detect projects in a solution and list them for selection
+- Faster command execution
+
+### Fixed
+- Disable all buttons when a command is executed
+
 ## [1.0.3]
 ### Fixed
 

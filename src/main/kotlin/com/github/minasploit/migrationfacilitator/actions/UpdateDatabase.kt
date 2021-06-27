@@ -1,19 +1,21 @@
 package com.github.minasploit.migrationfacilitator.actions
 
-import com.intellij.openapi.actionSystem.AnAction
+import com.github.minasploit.migrationfacilitator.BaseAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.ui.Messages
 
-class UpdateDatabase : AnAction() {
+class UpdateDatabase : BaseAction() {
+
+    companion object {
+        var IsEnabled = true
+    }
+
     override fun actionPerformed(e: AnActionEvent) {
-        if (e.project == null) {
-            return Messages.showMessageDialog(
-                "A project needs to be loaded to use this action",
-                "Error",
-                Messages.getErrorIcon()
-            )
-        }
-
         UpdateDatabaseDialog(e.project!!).show()
+    }
+
+    override fun update(e: AnActionEvent) {
+        e.presentation.isEnabled = IsEnabled
+
+        super.update(e)
     }
 }

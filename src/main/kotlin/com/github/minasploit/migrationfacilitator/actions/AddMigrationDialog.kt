@@ -1,32 +1,27 @@
 package com.github.minasploit.migrationfacilitator.actions
 
+import com.github.minasploit.migrationfacilitator.BaseDialogWrapper
 import java.awt.Dimension
 import javax.swing.BoxLayout
 import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPanel
-import javax.swing.JSeparator
 import javax.swing.JTextField
 import java.util.function.Consumer
 import com.github.minasploit.migrationfacilitator.DATA_PROJECT
 import com.github.minasploit.migrationfacilitator.STARTUP_PROJECT
 import com.github.minasploit.migrationfacilitator.Util
-import com.intellij.ide.util.PropertiesComponent
 import com.intellij.notification.NotificationType
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.openapi.ui.Messages
 
-class AddMigrationDialog(private val project: Project) : DialogWrapper(project, true) {
+class AddMigrationDialog(private val project: Project) : BaseDialogWrapper(project, true) {
 
     private val useUnderscoreRatherThanCamelCase = false
-    private val properties: PropertiesComponent = PropertiesComponent.getInstance(project)
     private val migrationNameInput = JTextField()
-    private val startupProjectInput = JTextField(properties.getValue(STARTUP_PROJECT, project.name))
-    private val dataProjectInput = JTextField(properties.getValue(DATA_PROJECT, project.name))
 
     override fun createCenterPanel(): JComponent {
         val dialogPanel = JPanel()
@@ -34,43 +29,22 @@ class AddMigrationDialog(private val project: Project) : DialogWrapper(project, 
         dialogPanel.preferredSize = Dimension(75, 0)
 
         val description = JLabel("This allows you to create a migration from the specified startup and data projects")
-//        description.preferredSize = Dimension()
 
         val migrationNameInputLabel = JLabel("Migration Name", JLabel.TRAILING)
-//        migrationNameInputLabel.preferredSize = Dimension()
-
-        val startupProjectInputLabel = JLabel("Startup Project. Ex: Solution.StartupProject", JLabel.TRAILING)
-//        startupProjectInputLabel.preferredSize = Dimension()
-
-        val dataProjectInputLabel =
-            JLabel("Data Project, the project where you store the DbContext. Ex: Solution.DataProject", JLabel.TRAILING)
-//        dataProjectInputLabel.preferredSize = Dimension()
-
-        val separator = JSeparator()
-        separator.size = Dimension(10, 20)
 
         migrationNameInput.preferredSize = Dimension(75, 25)
         migrationNameInputLabel.labelFor = migrationNameInput
-
-        startupProjectInput.preferredSize = Dimension(75, 25)
-        startupProjectInputLabel.labelFor = startupProjectInput
-
-        dataProjectInput.preferredSize = Dimension(75, 25)
-        dataProjectInputLabel.labelFor = dataProjectInput
 
         dialogPanel.add(description)
         dialogPanel.add(separator)
         dialogPanel.add(migrationNameInputLabel)
         dialogPanel.add(migrationNameInput)
-        dialogPanel.add(startupProjectInputLabel)
-        dialogPanel.add(startupProjectInput)
-        dialogPanel.add(dataProjectInputLabel)
-        dialogPanel.add(dataProjectInput)
+        addDefaultUi(dialogPanel)
 
         return dialogPanel
     }
 
-    override fun getPreferredFocusedComponent(): JComponent? {
+    override fun getPreferredFocusedComponent(): JComponent {
         return migrationNameInput
     }
 
@@ -82,6 +56,8 @@ class AddMigrationDialog(private val project: Project) : DialogWrapper(project, 
             migrationNameInput.requestFocusInWindow()
             return
         }
+
+        Util.disableAllButtons()
 
         if (useUnderscoreRatherThanCamelCase) {
             migrationName = migrationName.replace(" ", "_")
@@ -95,26 +71,24 @@ class AddMigrationDialog(private val project: Project) : DialogWrapper(project, 
             migrationName = fixedMigrationName
         }
 
-        properties.setValue(STARTUP_PROJECT, startupProjectInput.text)
-        properties.setValue(DATA_PROJECT, dataProjectInput.text)
+        properties.setValue(STARTUP_PROJECT, startupProjectSelector.item)
+        properties.setValue(DATA_PROJECT, dataProjectSelector.item)
 
         ProgressManager.getInstance().run(object : Task.Backgroundable(project, "Adding new migration...") {
             override fun run(indicator: ProgressIndicator) {
-                // start your process
-
                 val (success, output, errorMessage) = Util.runCommand(
                     project,
                     Util.buildDotnetCommand(
                         "migrations add \"$migrationName\"",
-                        startupProjectInput.text,
-                        dataProjectInput.text
+                        startupProjectSelector.item,
+                        dataProjectSelector.item
                     )
                 )
                 if (success) {
                     Util.showNotification(
                         project,
                         "Migration created",
-                        "Migration: '$migrationName' created in the project ${dataProjectInput.text}",
+                        "Migration: '$migrationName' created in the project '${dataProjectSelector.item}'",
                         NotificationType.INFORMATION
                     )
                 } else {
@@ -125,6 +99,8 @@ class AddMigrationDialog(private val project: Project) : DialogWrapper(project, 
                         NotificationType.ERROR
                     )
                 }
+
+                Util.enableAllButtons()
             }
         })
 
