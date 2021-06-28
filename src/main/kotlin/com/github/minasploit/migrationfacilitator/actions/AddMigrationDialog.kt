@@ -21,7 +21,7 @@ import com.intellij.openapi.ui.Messages
 class AddMigrationDialog(private val project: Project) : BaseDialogWrapper(project, true) {
 
     private val useUnderscoreRatherThanCamelCase = false
-    private val migrationNameInput = JTextField()
+    private val migrationNameInput = com.intellij.ui.EditorTextField()
 
     override fun createCenterPanel(): JComponent {
         val dialogPanel = JPanel()
@@ -51,7 +51,7 @@ class AddMigrationDialog(private val project: Project) : BaseDialogWrapper(proje
     override fun doOKAction() {
         var migrationName = migrationNameInput.text
 
-        if (migrationName.isNullOrBlank()) {
+        if (migrationName.isBlank()) {
             Messages.showErrorDialog("Input the migration name", "Error")
             migrationNameInput.requestFocusInWindow()
             return
@@ -71,8 +71,8 @@ class AddMigrationDialog(private val project: Project) : BaseDialogWrapper(proje
             migrationName = fixedMigrationName
         }
 
-        properties.setValue(STARTUP_PROJECT, startupProjectSelector.item)
-        properties.setValue(DATA_PROJECT, dataProjectSelector.item)
+        properties.setValue(STARTUP_PROJECT, startupProjectSelector.selectedItem as String)
+        properties.setValue(DATA_PROJECT, dataProjectSelector.selectedItem as String)
 
         ProgressManager.getInstance().run(object : Task.Backgroundable(project, "Adding new migration...") {
             override fun run(indicator: ProgressIndicator) {
@@ -80,15 +80,15 @@ class AddMigrationDialog(private val project: Project) : BaseDialogWrapper(proje
                     project,
                     Util.buildDotnetCommand(
                         "migrations add \"$migrationName\"",
-                        startupProjectSelector.item,
-                        dataProjectSelector.item
+                        startupProjectSelector.selectedItem as String,
+                        dataProjectSelector.selectedItem as String
                     )
                 )
                 if (success) {
                     Util.showNotification(
                         project,
                         "Migration created",
-                        "Migration: '$migrationName' created in the project '${dataProjectSelector.item}'",
+                        "Migration: '$migrationName' created in the project '${dataProjectSelector.selectedItem as String}'",
                         NotificationType.INFORMATION
                     )
                 } else {

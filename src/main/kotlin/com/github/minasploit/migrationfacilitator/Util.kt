@@ -133,14 +133,24 @@ class Util private constructor() {
             UpdateDatabase.IsEnabled = enable
         }
 
-        fun getProjectsInSolution(project: Project): List<String> {
+        fun getProjectsInSolutionByFile(project: Project): List<String> {
             return try {
                 val solutionDirectoryVirtualFile = LocalFileSystem.getInstance().findFileByPath(project.basePath!!)!!
                 val solutionVirtualFile = solutionDirectoryVirtualFile.children.first { it.name.contains(".sln") }
                 val solutionContent = LoadTextUtil.loadText(solutionVirtualFile).toString()
-                val projectsDetail = StringUtils.substringsBetween(solutionContent, "Project", "EndProject")
-                projectsDetail.map {
+                StringUtils.substringsBetween(solutionContent, "Project", "EndProject").map {
                     StringUtils.substringBetween(it, "= \"", "\"")
+                }
+            } catch (ex: Exception) {
+                arrayListOf(project.name)
+            }
+        }
+
+        fun getProjectsInSolutionByCommand(project: Project): List<String> {
+            return try {
+                val (_, output, _) = runCommand(project, "dotnet sln list")
+                output.split("\n").map {
+                    it.split("\\")[0]
                 }
             } catch (ex: Exception) {
                 arrayListOf(project.name)

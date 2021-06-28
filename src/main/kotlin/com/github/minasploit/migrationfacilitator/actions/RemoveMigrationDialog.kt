@@ -46,8 +46,8 @@ class RemoveMigrationDialog(private val project: Project) : BaseDialogWrapper(pr
 
         Util.disableAllButtons()
 
-        properties.setValue(STARTUP_PROJECT, startupProjectSelector.item)
-        properties.setValue(DATA_PROJECT, dataProjectSelector.item)
+        properties.setValue(STARTUP_PROJECT, startupProjectSelector.selectedItem as String)
+        properties.setValue(DATA_PROJECT, dataProjectSelector.selectedItem as String)
 
         ProgressManager.getInstance().run(object : Task.Backgroundable(project, "Removing last migration...") {
             override fun run(indicator: ProgressIndicator) {
@@ -55,8 +55,8 @@ class RemoveMigrationDialog(private val project: Project) : BaseDialogWrapper(pr
                     project,
                     Util.buildDotnetCommand(
                         "migrations remove",
-                        startupProjectSelector.item,
-                        dataProjectSelector.item,
+                        startupProjectSelector.selectedItem as String,
+                        dataProjectSelector.selectedItem as String,
                         false
                     )
                 )
@@ -65,7 +65,7 @@ class RemoveMigrationDialog(private val project: Project) : BaseDialogWrapper(pr
                     Util.showNotification(
                         project,
                         "Migration removed",
-                        "Last Migration: $migrationName removed from the project '${dataProjectSelector.item}'",
+                        "Last Migration: $migrationName removed from the project '${dataProjectSelector.selectedItem as String}'",
                         NotificationType.INFORMATION
                     )
                 } else {

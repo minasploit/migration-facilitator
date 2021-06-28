@@ -60,8 +60,8 @@ class UpdateDatabaseDialog(private val project: Project) : BaseDialogWrapper(pro
                     project,
                     Util.buildDotnetCommand(
                         "migrations list",
-                        startupProjectSelector.item,
-                        dataProjectSelector.item,
+                        startupProjectSelector.selectedItem as String,
+                        dataProjectSelector.selectedItem as String,
                         false
                     ),
                     2, project.basePath!!, false
@@ -94,8 +94,8 @@ class UpdateDatabaseDialog(private val project: Project) : BaseDialogWrapper(pro
 
                     migrationSelector.selectedIndex = migrationSelector.itemCount - 1
 
-                    properties.setValue(STARTUP_PROJECT, startupProjectSelector.item)
-                    properties.setValue(DATA_PROJECT, dataProjectSelector.item)
+                    properties.setValue(STARTUP_PROJECT, startupProjectSelector.selectedItem as String)
+                    properties.setValue(DATA_PROJECT, dataProjectSelector.selectedItem as String)
 
                     refreshMigrationButton.isVisible = false
                 } else {
@@ -137,8 +137,8 @@ class UpdateDatabaseDialog(private val project: Project) : BaseDialogWrapper(pro
 
         Util.disableAllButtons()
 
-        properties.setValue(STARTUP_PROJECT, startupProjectSelector.item)
-        properties.setValue(DATA_PROJECT, dataProjectSelector.item)
+        properties.setValue(STARTUP_PROJECT, startupProjectSelector.selectedItem as String)
+        properties.setValue(DATA_PROJECT, dataProjectSelector.selectedItem as String)
 
         ProgressManager.getInstance().run(object : Task.Backgroundable(project, "Updating database...") {
             override fun run(indicator: ProgressIndicator) {
@@ -147,8 +147,8 @@ class UpdateDatabaseDialog(private val project: Project) : BaseDialogWrapper(pro
                     project,
                     Util.buildDotnetCommand(
                         "database update \"$migrationName\"",
-                        startupProjectSelector.item,
-                        dataProjectSelector.item
+                        startupProjectSelector.selectedItem as String,
+                        dataProjectSelector.selectedItem as String
                     ),
                     0
                 )
@@ -157,7 +157,7 @@ class UpdateDatabaseDialog(private val project: Project) : BaseDialogWrapper(pro
                         project,
                         "Database updated",
                         if (migrationName == "0") "All migrations have been removed from the database."
-                        else "Migration: '$migrationName' applied to database referenced in the project '${dataProjectSelector.item}'",
+                        else "Migration: '$migrationName' applied to database referenced in the project '${dataProjectSelector.selectedItem as String}'",
                         NotificationType.INFORMATION
                     )
                 } else {

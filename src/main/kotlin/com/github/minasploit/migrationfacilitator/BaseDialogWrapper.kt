@@ -22,7 +22,7 @@ abstract class BaseDialogWrapper(project: Project, canBeParent: Boolean) : Dialo
     val dataProjectSelector = com.intellij.openapi.ui.ComboBox<String>()
 
     init {
-        Util.getProjectsInSolution(project).forEach {
+        Util.getProjectsInSolutionByCommand(project).forEach {
             startupProjectSelector.addItem(it)
             dataProjectSelector.addItem(it)
         }

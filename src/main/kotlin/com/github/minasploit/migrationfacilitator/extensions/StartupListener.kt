@@ -42,7 +42,7 @@ class StartupListener : StartupActivity {
                             Util.showNotification(
                                 project,
                                 "Installation failed",
-                                "Couldn't install Entity Framework Core .NET Command-line Tool",
+                                "Couldn't install Entity Framework Core .NET Command-line Tool. Please install it manually and restart the IDE.",
                                 NotificationType.ERROR
                             )
                         }
