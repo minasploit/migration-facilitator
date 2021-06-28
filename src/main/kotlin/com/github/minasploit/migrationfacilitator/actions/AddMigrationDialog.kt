@@ -21,7 +21,7 @@ import com.intellij.openapi.ui.Messages
 class AddMigrationDialog(private val project: Project) : BaseDialogWrapper(project, true) {
 
     private val useUnderscoreRatherThanCamelCase = false
-    private val migrationNameInput = com.intellij.ui.EditorTextField()
+    private val migrationNameInput = JTextField()
 
     override fun createCenterPanel(): JComponent {
         val dialogPanel = JPanel()
