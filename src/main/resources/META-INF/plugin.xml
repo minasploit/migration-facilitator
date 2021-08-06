@@ -2,9 +2,9 @@
     <id>com.github.minasploit.migrationfacilitator</id>
     <name>Migration Facilitator</name>
     <vendor url="https://github.com/minasploit" email="minasploit@gmail.com">Minasie Shibeshi</vendor>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
 
-    <idea-version since-build="145" until-build="211.*"/>
+    <idea-version since-build="145"/>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
@@ -30,7 +30,7 @@
                 <keyboard-shortcut first-keystroke="shift control F3" keymap="$default"/>
             </action>
             <action class="com.github.minasploit.migrationfacilitator.actions.VersionAction"
-                    id="Migrations.Version" text="Version 1.0.5"/>
+                    id="Migrations.Version" text="Version 1.0.6"/>
         </group>
 
         <group id="Migrations.Menu" text="Migrations" popup="true">
