@@ -1,6 +1,6 @@
 <idea-plugin url="https://plugins.jetbrains.com/plugin/17026">
     <id>com.github.minasploit.migrationfacilitator</id>
-    <name>Migration Facilitator</name>
+    <name>.Net EF Migration Facilitator</name>
     <vendor url="https://github.com/minasploit" email="minasploit@gmail.com">Minasie Shibeshi</vendor>
     <version>1.0.6</version>
 

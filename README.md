@@ -1,4 +1,4 @@
-# Migration Facilitator
+# .Net EF Migration Facilitator
 
 ![Build](https://github.com/minasploit/migration-facilitator/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/17026.svg)](https://plugins.jetbrains.com/plugin/17026)

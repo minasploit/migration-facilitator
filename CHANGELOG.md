@@ -1,6 +1,6 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# Migration Facilitator Changelog
+# .Net EF Migration Facilitator Changelog
 
 ##[1.0.6]
 ### Fixed
