@@ -2,7 +2,7 @@
     <id>com.github.minasploit.migrationfacilitator</id>
     <name>.Net EF Migration Facilitator</name>
     <vendor url="https://github.com/minasploit" email="minasploit@gmail.com">Minasie Shibeshi</vendor>
-    <version>1.0.6</version>
+    <version>1.0.4</version>
 
     <idea-version since-build="145" until-build="212.*"/>
 
@@ -30,7 +30,7 @@
                 <keyboard-shortcut first-keystroke="shift control F3" keymap="$default"/>
             </action>
             <action class="com.github.minasploit.migrationfacilitator.actions.VersionAction"
-                    id="Migrations.Version" text="Version 1.0.6"/>
+                    id="Migrations.Version" text="Version 1.0.4"/>
         </group>
 
         <group id="Migrations.Menu" text="Migrations" popup="true">

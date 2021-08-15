@@ -6,7 +6,7 @@
 ### Fixed
 - Fixed forward compatibility issues
 
-## [1.0.5]
+## [1.0.4]
 ### Added
 - Synchronous blocking load of migrations for Update Database
 - Detect projects in a solution and list them for selection
