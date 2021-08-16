@@ -4,7 +4,7 @@
     <vendor url="https://github.com/minasploit" email="minasploit@gmail.com">Minasie Shibeshi</vendor>
     <version>1.0.6</version>
 
-    <idea-version since-build="145" until-build="212.*"/>
+    <idea-version since-build="145" until-build="222.2"/>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
