@@ -39,7 +39,7 @@ and <kbd>Update Database</kbd>
 
 - Using IDE built-in plugin system:
 
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "Migration
+  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for ".Net EF Migration
   Facilitator"</kbd> >
   <kbd>Install Plugin</kbd>
 
