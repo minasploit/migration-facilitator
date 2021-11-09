@@ -151,22 +151,7 @@ class Util private constructor() {
             return try {
                 val (_, output, _) = runCommand(project, "dotnet sln list")
                 output.split("\n").map {
-                    val directoryStructure = it.split("\\")
-
-                    var projectName = ""
-
-                    if ((directoryStructure.count() - 2) >= 0)
-                        projectName = directoryStructure[directoryStructure.count() - 2]
-                    else {
-                        projectName = directoryStructure[directoryStructure.count() - 1]
-
-                        // the project is not in a sub directory hence the value you get from dotnet is a project file
-                        // make sure to remove the file name extension from the value before suggesting the project name
-
-                        projectName = getFileNameWithoutExtension(projectName)
-                    }
-
-                    projectName
+                    it.substringBeforeLast("\\", getFileNameWithoutExtension(it))
                 }
             } catch (ex: Exception) {
                 arrayListOf(project.name)
