@@ -2,6 +2,10 @@
 
 # .Net EF Migration Facilitator Changelog
 
+##[1.0.7]
+### Fixed
+- Fixed issues with detecting projects located in subdirectories
+
 ##[1.0.6]
 ### Fixed
 - Fixed forward compatibility issues

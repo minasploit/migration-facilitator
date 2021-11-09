@@ -3,15 +3,16 @@ package com.github.minasploit.migrationfacilitator
 import com.github.minasploit.migrationfacilitator.actions.AddMigration
 import com.github.minasploit.migrationfacilitator.actions.RemoveMigration
 import com.github.minasploit.migrationfacilitator.actions.UpdateDatabase
-import com.intellij.notification.NotificationType
 import com.intellij.notification.Notification
+import com.intellij.notification.NotificationType
 import com.intellij.openapi.fileEditor.impl.LoadTextUtil
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFileManager
 import org.apache.commons.lang.StringUtils
 import java.io.File
-import java.util.Scanner
+import java.util.*
+import java.util.regex.Pattern
 
 class Util private constructor() {
 
@@ -150,11 +151,32 @@ class Util private constructor() {
             return try {
                 val (_, output, _) = runCommand(project, "dotnet sln list")
                 output.split("\n").map {
-                    it.split("\\")[0]
+                    val directoryStructure = it.split("\\")
+
+                    var projectName = ""
+
+                    if ((directoryStructure.count() - 2) >= 0)
+                        projectName = directoryStructure[directoryStructure.count() - 2]
+                    else {
+                        projectName = directoryStructure[directoryStructure.count() - 1]
+
+                        // the project is not in a sub directory hence the value you get from dotnet is a project file
+                        // make sure to remove the file name extension from the value before suggesting the project name
+
+                        projectName = getFileNameWithoutExtension(projectName)
+                    }
+
+                    projectName
                 }
             } catch (ex: Exception) {
                 arrayListOf(project.name)
             }
+        }
+
+        private val extensionPattern: Pattern = Pattern.compile("(?<=.)\\.[^.]+$")
+
+        fun getFileNameWithoutExtension(fileName: String): String {
+            return extensionPattern.matcher(fileName).replaceAll("")
         }
     }
 }
