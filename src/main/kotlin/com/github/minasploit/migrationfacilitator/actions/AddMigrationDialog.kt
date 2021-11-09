@@ -65,7 +65,7 @@ class AddMigrationDialog(private val project: Project) : BaseDialogWrapper(proje
             var fixedMigrationName = ""
             migrationName.split(" ").forEach(
                 Consumer {
-                    fixedMigrationName += it.substring(0, 1).toUpperCase() + it.substring(1).toLowerCase();
+                    fixedMigrationName += it.substring(0, 1).toUpperCase() + it.substring(1).toLowerCase()
                 }
             )
             migrationName = fixedMigrationName

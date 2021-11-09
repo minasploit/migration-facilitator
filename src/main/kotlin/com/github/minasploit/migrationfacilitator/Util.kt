@@ -11,7 +11,7 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFileManager
 import org.apache.commons.lang.StringUtils
 import java.io.File
-import java.util.*
+import java.util.Scanner
 import java.util.regex.Pattern
 
 class Util private constructor() {
