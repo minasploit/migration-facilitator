@@ -1,10 +1,10 @@
 # .Net EF Migration Facilitator
 
-![Build](https://github.com/minasploit/migration-facilitator/workflows/Build/badge.svg)
-![Version](https://img.shields.io/jetbrains/plugin/v/17026.svg?label=version)
-![Downloads](https://img.shields.io/jetbrains/plugin/d/17026.svg)
-![Rating](https://img.shields.io/jetbrains/plugin/r/stars/17026)
-[![Install](https://img.shields.io/badge/install-.NET%20EF%20Migration%20Facilitator-green?link=https://plugins.jetbrains.com/embeddable/install/17026&link=https://plugins.jetbrains.com/embeddable/install/17026)](https://plugins.jetbrains.com/embeddable/install/17026)
+[![Build](https://github.com/minasploit/migration-facilitator/workflows/Build/badge.svg)][plugingithubactions]
+[![Version](https://img.shields.io/jetbrains/plugin/v/17026.svg?label=version)][pluginversions]
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/17026.svg)][plugin]
+[![Rating](https://img.shields.io/jetbrains/plugin/r/stars/17026)][reviews]
+[![Install](https://img.shields.io/badge/install-.NET%20EF%20Migration%20Facilitator-green)][pluginembedableinstall]
 
 Manages the addition and removal of EF Core migrations as well as database updates.
 
@@ -39,6 +39,8 @@ and <kbd>Update Database</kbd>
 
 ## Installation
 
+[<img src="assets/get from marketplace.png"></img>][pluginembedableinstall]
+
 - Using IDE built-in plugin system:
 
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for ".Net EF Migration
@@ -52,6 +54,10 @@ and <kbd>Update Database</kbd>
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 ---
-Plugin based on the [IntelliJ Platform Plugin Template][template].
+Thank you for using the plugin. 💙 from Ethiopia 🇪🇹
 
-[template]: https://github.com/JetBrains/intellij-platform-plugin-template
+[plugin]: https://plugins.jetbrains.com/plugin/17026
+[pluginembedableinstall]: https://plugins.jetbrains.com/embeddable/install/17026
+[pluginversions]: https://plugins.jetbrains.com/plugin/17026--net-ef-migration-facilitator/versions
+[reviews]: https://plugins.jetbrains.com/plugin/17026--net-ef-migration-facilitator/reviews
+[plugingithubactions]: https://github.com/minasploit/migration-facilitator/actions
